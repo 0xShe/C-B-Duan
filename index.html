@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>C段B段生成器</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+function copyResult() {
+  var resultTextarea = document.getElementById("result");
+  resultTextarea.select();
+  document.execCommand("copy");
+  alert("结果已复制到剪贴板！");
+}
+</script>
+	<style>
+body {
+    background-color: #000;
+    color: #0f0;
+    font-family: monospace;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-top: 1em;
+}
+
+label {
+    display: block;
+    margin-top: 1em;
+}
+
+input {
+    background-color: #222;
+    border: none;
+    border-radius: 3px;
+    color: #0f0;
+    padding: 0.5em;
+    width: 20%;
+}
+
+button {
+    background-color: #333;
+    border: none;
+    border-radius: 3px;
+    color: #0f0;
+    cursor: pointer;
+    margin-right: 0.5em;
+    padding: 0.5em 1em;
+}
+
+textarea {
+    background-color: #222;
+    border: none;
+    border-radius: 3px;
+    color: #0f0;
+    font-family: monospace;
+    margin-top: 1em;
+    padding: 1em;
+    resize: none;
+    width: 80%;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+button:active {
+    background-color: #555;
+}
+
+button:focus {
+    outline: none;
+}
+
+::-moz-selection {
+    background-color: #0f0;
+    color: #000;
+}
+
+::selection {
+    background-color: #0f0;
+    color: #000;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #0f0;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #080;
+}
+
+</style>
+
+</head>
+<body>
+	<h1>C段B段生成器</h1>
+	<label for="ip">请输入IP地址：</label>
+	<input type="text" id="ip" name="ip">
+	<br><br>
+	<button onclick="showB()">列出B段IP</button>
+	<button onclick="showC()">列出C段IP</button>
+	<button onclick="copyResult()">复制结果</button>
+	<br><br>
+	<textarea id="result" rows="10" cols="50"></textarea>
+	<script>
+		function showB() {
+			var ip = document.getElementById("ip").value;
+			var b = ip.split(".");
+			var bResults = [];
+
+			for (var i = 0; i <= 255; i++) {
+				bResults.push(b[0] + "." + b[1] + "." + i + ".0");
+			}
+
+			document.getElementById("result").value = bResults.join("\n");
+		}
+
+		function showC() {
+			var ip = document.getElementById("ip").value;
+			var c = ip.split(".");
+			var cResults = [];
+
+			for (var i = 0; i <= 255; i++) {
+				for (var j = 0; j <= 255; j++) {
+					cResults.push(c[0] + "." + c[1] + "." + i + "." + j);
+				}
+			}
+
+			document.getElementById("result").value = cResults.join("\n");
+		}
+	</script>
+</body>
+</html>
+
