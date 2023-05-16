@@ -109,33 +109,43 @@ button:focus {
 	<button onclick="copyResult()">复制结果</button>
 	<br><br>
 	<textarea id="result" rows="10" cols="50"></textarea>
-	<script>
-		function showB() {
-			var ip = document.getElementById("ip").value;
-			var b = ip.split(".");
-			var bResults = [];
+<script>
+    function showB() {
+        var ip = document.getElementById("ip").value;
+        var b = ip.split(".");
+        var bResults = [];
 
-			for (var i = 0; i <= 255; i++) {
-				bResults.push(b[0] + "." + b[1] + "." + i + ".0");
-			}
+        for (var i = parseInt(b[2]); i <= 255; i++) {
+            for (var j = 1; j <= 255; j++) {
+                bResults.push(b[0] + "." + b[1] + "." + i + "." + j);
+            }
+        }
 
-			document.getElementById("result").value = bResults.join("\n");
-		}
+        document.getElementById("result").value = bResults.join("\n");
+    }
 
-		function showC() {
-			var ip = document.getElementById("ip").value;
-			var c = ip.split(".");
-			var cResults = [];
+    function showC() {
+        var ip = document.getElementById("ip").value;
+        var c = ip.split(".");
+        var cResults = [];
 
-			for (var i = 0; i <= 255; i++) {
-				for (var j = 0; j <= 255; j++) {
-					cResults.push(c[0] + "." + c[1] + "." + i + "." + j);
-				}
-			}
+        for (var i = parseInt(c[3]) + 1; i <= 255; i++) {
+            cResults.push(c[0] + "." + c[1] + "." + c[2] + "." + i);
+        }
 
-			document.getElementById("result").value = cResults.join("\n");
-		}
-	</script>
+        document.getElementById("result").value = cResults.join("\n");
+    }
+
+    function copyResult() {
+        var resultTextarea = document.getElementById("result");
+        resultTextarea.select();
+        document.execCommand("copy");
+        alert("结果已复制到剪贴板！");
+    }
+</script>
+
+
+
 </body>
 </html>
 
